@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Lost & Found - Digital Access Recovery System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo" onclick="showHome()">Cyber Lost & Found</div>
+            <div class="nav-links">
+                <a onclick="showHome()">Home</a>
+                <a onclick="showStudentPortal()">Student Portal</a>
+                <a onclick="showAdminPortal()">Admin Portal</a>
+                <a onclick="showLogin()" class="login-btn">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <!-- Hero Section -->
+        <div id="heroSection" class="hero-section">
+            <h1>Digital Access Recovery System</h1>
+            <p>Recover your institutional accounts automatically - No more manual admin work!</p>
+        </div>
+
+        <!-- Portal Selection -->
+        <div id="portalSelection" class="portal-selection">
+            <div class="portal-card" onclick="showStudentRegistration()">
+                <div class="portal-icon">👨‍🎓</div>
+                <h3>Student Portal</h3>
+                <p>Access your accounts, request recoveries, track status</p>
+                <button class="portal-btn">Student Login</button>
+            </div>
+            <div class="portal-card" onclick="showAdminRegistration()">
+                <div class="portal-icon">👨‍💼</div>
+                <h3>Admin Portal</h3>
+                <p>Manage requests, verify identities, reset passwords</p>
+                <button class="portal-btn">Admin Login</button>
+            </div>
+        </div>
+
+        <!-- Student Registration Form -->
+        <div id="studentRegistration" class="auth-form">
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Student Registration</h2>
+            <div class="quick-tips">
+                <h4>📝 Roll Number Format:</h4>
+                <ul>
+                    <li>252003xxxx - CSE Department</li>
+                    <li>252004xxxx - ECE Department</li>
+                    <li>252008xxxx - AI&DS Department</li>
+                    <li>252009xxxx - CS&IT Department</li>
+                </ul>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">(xxxx can be any 4 digits)</p>
+            </div>
+            <form onsubmit="registerStudent(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="studentName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Roll Number (10 digits)</label>
+                    <input type="text" id="rollNumber" placeholder="e.g., 2520031234" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-input">
+                        <input type="password" id="studentPassword" placeholder="Choose a password" required>
+                        <span class="toggle-password" onclick="togglePassword('studentPassword')">👁️</span>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                Already have an account? <a href="#" onclick="showStudentLogin()">Login here</a>
+            </p>
+        </div>
+
+        <!-- Student Login Form -->
+        <div id="studentLogin" class="auth-form">
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Student Login</h2>
+            <form onsubmit="loginStudent(event)">
+                <div class="form-group">
+                    <label>Roll Number</label>
+                    <input type="text" id="loginRollNumber" placeholder="Enter your 10-digit roll number" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-input">
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        <span class="toggle-password" onclick="togglePassword('loginPassword')">👁️</span>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                Don't have an account? <a href="#" onclick="showStudentRegistration()">Register here</a>
+            </p>
+        </div>
+
+        <!-- Admin Registration Form -->
+        <div id="adminRegistration" class="auth-form">
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Admin Registration</h2>
+            <form onsubmit="registerAdmin(event)">
+                <div class="form-group">
+                    <label>Admin Name</label>
+                    <input type="text" id="adminName" placeholder="Enter admin name" required>
+                </div>
+                <div class="form-group">
+                    <label>Admin ID</label>
+                    <input type="text" id="adminId" placeholder="Choose admin ID" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-input">
+                        <input type="password" id="adminPassword" placeholder="Choose password" required>
+                        <span class="toggle-password" onclick="togglePassword('adminPassword')">👁️</span>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                Already have an account? <a href="#" onclick="showAdminLogin()">Login here</a>
+            </p>
+        </div>
+
+        <!-- Admin Login Form -->
+        <div id="adminLogin" class="auth-form">
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Admin Login</h2>
+            <form onsubmit="loginAdmin(event)">
+                <div class="form-group">
+                    <label>Admin ID</label>
+                    <input type="text" id="adminLoginId" placeholder="Enter admin ID" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-input">
+                        <input type="password" id="adminLoginPassword" placeholder="Enter password" required>
+                        <span class="toggle-password" onclick="togglePassword('adminLoginPassword')">👁️</span>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                Don't have an account? <a href="#" onclick="showAdminRegistration()">Register here</a>
+            </p>
+        </div>
+
+        <!-- Student Dashboard -->
+        <div id="studentDashboard" class="dashboard">
+            <div class="dashboard-header">
+                <div>
+                    <h2 class="welcome-message" id="studentWelcome"></h2>
+                    <span id="studentDepartment" class="department-badge"></span>
+                </div>
+                <button class="submit-btn" style="width: auto;" onclick="logout()">Logout</button>
+            </div>
+
+            <!-- Quick Help -->
+            <div class="quick-tips">
+                <h4>🔑 Quick Guide:</h4>
+                <ul>
+                    <li>Add your institutional accounts below</li>
+                    <li>Click "Login" to access any account directly</li>
+                    <li>Account locks after 3 failed attempts</li>
+                    <li>Use "Request Recovery" for locked accounts</li>
+                    <li>Track request status in Recovery Requests section</li>
+                </ul>
+            </div>
+
+            <!-- Add Account Form -->
+            <div class="add-account-form">
+                <h3 style="margin-bottom: 1rem;">➕ Add New Account</h3>
+                <form onsubmit="addAccount(event)">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div class="form-group">
+                            <label>Account Type</label>
+                            <select id="accountType" required>
+                                <option value="ERP">ERP Account</option>
+                                <option value="Library">Library Account</option>
+                                <option value="WiFi">WiFi Login</option>
+                                <option value="LMS">LMS Account</option>
+                                <option value="Lab">Lab System Login</option>
+                                <option value="Examination">Examination Portal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Username/ID</label>
+                            <input type="text" id="accountUsername" placeholder="Enter username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <div class="password-input">
+                                <input type="password" id="accountPassword" placeholder="Enter password" required>
+                                <span class="toggle-password" onclick="togglePassword('accountPassword')">👁️</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <button type="submit" class="submit-btn">Add Account</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Saved Accounts -->
+            <h3 style="margin-bottom: 1rem;">📁 Your Saved Accounts</h3>
+            <div id="accountsContainer" class="accounts-grid"></div>
+
+            <!-- Recovery Requests -->
+            <h3 style="margin-bottom: 1rem;">📋 Your Recovery Requests</h3>
+            <div id="studentRequests" class="requests-table"></div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="adminDashboard" class="dashboard">
+            <div class="dashboard-header">
+                <h2 class="welcome-message">Admin Dashboard</h2>
+                <button class="submit-btn" style="width: auto;" onclick="logout()">Logout</button>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-container" id="adminStats"></div>
+
+            <!-- Pending Requests -->
+            <h3 style="margin-bottom: 1rem;">⏳ Pending Recovery Requests</h3>
+            <table class="requests-table" id="adminRequests">
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Student Name</th>
+                        <th>Account Type</th>
+                        <th>Request Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="adminRequestsBody">
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem;">Loading requests...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- All Requests History -->
+            <h3 style="margin-bottom: 1rem; margin-top: 2rem;">📊 All Requests History</h3>
+            <table class="requests-table" id="allRequestsTable">
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Student Name</th>
+                        <th>Account Type</th>
+                        <th>Request Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="allRequestsBody"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-toggle" onclick="toggleChatbot()">🤖</div>
+    <div class="chatbot-container" id="chatbot">
+        <div class="chatbot-header">
+            <h3>🤖 Lucky - AI Assistant</h3>
+            <span onclick="toggleChatbot()" style="cursor: pointer;">✕</span>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="message bot-message">
+                Hi! I'm Lucky, your personal AI assistant for the Cyber Lost & Found system! 🌟<br><br>
+                I can help you with:<br>
+                • Creating student/admin accounts<br>
+                • Login procedures<br>
+                • Adding and managing accounts<br>
+                • Raising recovery tickets<br>
+                • Account locking and unlocking<br>
+                • Tracking request status<br><br>
+                What would you like to know?
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="handleChatKeypress(event)">
+            <button onclick="sendChatMessage()">Send</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-name">Anikha Padala</div>
+            <div class="footer-contact">
+                <span>📞 9553396237</span>
+                <span>✉️ anikhadev@outlook.com</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
